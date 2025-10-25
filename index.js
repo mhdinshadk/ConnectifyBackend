@@ -28,10 +28,16 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(morgan('common'));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors({
-  origin: 'https://connectify-frontent.vercel.app',
-  credentials: true, // if using cookies/auth
-}));
+app.use(
+  cors({
+    origin: 'https://connectify-frontent.vercel.app', // EXACT frontend URL
+    credentials: true, // if using cookies
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
 
 // Ensure the 'public/assets' folder exists
 const assetsDir = path.join(__dirname, 'public/assets');
