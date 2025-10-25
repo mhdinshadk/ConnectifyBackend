@@ -38,6 +38,7 @@ app.use(
 );
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.options('*', cors());
 
 // Ensure the 'public/assets' folder exists
 const assetsDir = path.join(__dirname, 'public/assets');
